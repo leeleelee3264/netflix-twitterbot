@@ -7,7 +7,7 @@ import dload
 import datetime
 
 from test import test_print
-
+from tweet import postTweet
 
 def createFolder(fullPath):
     try:
@@ -69,6 +69,9 @@ def crawl():
 
             img = info.select_one('.thumb_item > .poster_movie > img')['src']
             dload.save(img, f'{TARGET_DIR}/{title}_{fToday}.png')
+
+        # post tweet
+        postTweet(container)
 
 
 if __name__ == '__main__':
