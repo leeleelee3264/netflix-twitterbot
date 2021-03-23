@@ -6,7 +6,7 @@ import os
 import dload
 import datetime
 
-from crawl.test import test_print
+from test import test_print
 
 
 def createFolder(fullPath):
@@ -69,3 +69,7 @@ def crawl():
 
             img = info.select_one('.thumb_item > .poster_movie > img')['src']
             dload.save(img, f'{TARGET_DIR}/{title}_{fToday}.png')
+
+
+if __name__ == '__main__':
+    crawl()
