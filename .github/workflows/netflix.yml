@@ -5,7 +5,7 @@ name: Netflix_Crawl
 
 on:
   schedule: 
-    - cron: '*/1 * * * *'
+    - cron: '*/50 * * * *'
   push:
     branches: [ master ]
   pull_request:
@@ -36,3 +36,8 @@ jobs:
     - name: Run netflix crawler with python 
       run: |
         python "crawl/netflix.py"
+      env: 
+        TWITTER_API_KEY: ${{ secret.TWITTER_API_KEY }}
+        TWITTER_API_SECRET: ${{ secret.TWITTER_API_SECRET }}
+        TWITTER_ACCESS_TOKEN: ${{ secret.TWITTER_ACCESS_TOKEN }}
+        TWITTER_ACCESS_TOKEN_SECRET: ${{ secret.TWITTER_ACCESS_TOKEN_SECRET }}
