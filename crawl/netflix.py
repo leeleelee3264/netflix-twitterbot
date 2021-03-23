@@ -6,6 +6,8 @@ import os
 import dload
 import datetime
 
+from crawl.test import test_print
+
 
 def createFolder(fullPath):
     try:
@@ -19,11 +21,18 @@ def crawl():
     BASE_DIR = os.path.dirname(os.path.abspath(__file__))
     IMG_DIR = f'{BASE_DIR}/img/netflix'
 
-    TARGET_URL = 'https://movie.daum.net/premovie/netflix?flag=Y'
-
-
-    TARGET_SELECTOR = '.item_poster'
     DATE_FORMAT = '%Y%m%d'
+    today = datetime.datetime.now()
+    fToday = today.strftime(DATE_FORMAT)
+
+    TARGET_DIR = f'{IMG_DIR}/{fToday}'
+
+
+    # generate folder
+    createFolder(TARGET_DIR)
+
+    TARGET_URL = 'https://movie.daum.net/premovie/netflix?flag=Y'
+    TARGET_SELECTOR = '.item_poster'
 
     _req = requests.get(TARGET_URL)
     _req.encoding = None
@@ -33,10 +42,11 @@ def crawl():
     # 정보 크롤링
     infos = _soup.select(TARGET_SELECTOR)
 
-    today = datetime.datetime.now()
-    fToday = today.strftime(DATE_FORMAT)
 
     container = {}
+
+    # test
+    test_print()
 
     for info in infos:
         title = info.select_one('.thumb_cont > .tit_item > a').text
@@ -50,4 +60,4 @@ def crawl():
             continue
 
         img = info.select_one('.thumb_item > .poster_movie > img')['src']
-        dload.save(img, f'{IMG_DIR}\\{title}_{fToday}.png')
+        dload.save(img, f'{TARGET_DIR}/{title}_{fToday}.png')
