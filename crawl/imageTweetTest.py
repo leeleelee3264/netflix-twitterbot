@@ -1,9 +1,14 @@
 # Project: twitter_project
 # Author: absin
+# Date: 2021-03-25
+# DESC:
+# Project: twitter_project
+# Author: absin
 # Date: 2021-03-24
 # DESC:
 import tweepy
 import os
+from pathlib import Path
 
 
 def OAuth():
@@ -26,10 +31,15 @@ def postTweet(container: dict):
     oauth = OAuth()
     api = tweepy.API(oauth)
 
+    _current_dir = os.path.dirname(os.path.abspath(__file__))
+    _path = Path(_current_dir)
+
+    BASE_DIR = _path.parent.absolute()
+    IMG_DIR = f'{BASE_DIR}/img/netflix/alba-icon.png'
+
     # TODO: 여기다가 이미지 넣는 방법 찾아야 한다
-    for key in container:
-        tweet_format = f'[{key}]\n 공개 여정일:{container[key]}'
-        api.update_with_media(status=tweet_format)
+    tweet_format = '이미지 테스트'
+    api.update_with_media(IMG_DIR, status=tweet_format)
 
 
 

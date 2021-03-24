@@ -1,4 +1,5 @@
 # file for crawl netflix info site
+from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
@@ -6,10 +7,13 @@ import os
 import dload
 import datetime
 
+
+from common import regex
 from test import test_print
 from tweet import postTweet
 
-def createFolder(fullPath):
+
+def create_folder(fullPath):
     try:
         if not os.path.exists(fullPath):
             os.makedirs(fullPath)
@@ -23,7 +27,10 @@ def createFolder(fullPath):
 
 
 def crawl():
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+    _current_dir = os.path.dirname(os.path.abspath(__file__))
+    _path = Path(_current_dir)
+
+    BASE_DIR = _path.parent.absolute()
     IMG_DIR = f'{BASE_DIR}/img/netflix'
 
     DATE_FORMAT = '%Y%m%d'
@@ -34,7 +41,7 @@ def crawl():
 
 
     # generate folder
-    isGenerated = createFolder(TARGET_DIR)
+    isGenerated = create_folder(TARGET_DIR)
 
     if isGenerated is False:
         pass
@@ -53,8 +60,6 @@ def crawl():
 
         container = {}
 
-        # test
-        test_print()
 
         for info in infos:
             title = info.select_one('.thumb_cont > .tit_item > a').text
@@ -67,11 +72,17 @@ def crawl():
                 del container[title]
                 continue
 
+            title_remove_white = regex.change_whitespace(title)
+            title_remove_spical = regex.change_file_disable(title_remove_white)
+
             img = info.select_one('.thumb_item > .poster_movie > img')['src']
-            dload.save(img, f'{TARGET_DIR}/{title}_{fToday}.png')
+            dload.save(img, f'{TARGET_DIR}/{title_remove_spical}.png')
 
         # post tweet
-        postTweet(container)
+        try:
+            postTweet(container)
+        except Exception as e:
+            print(e)
 
 
 if __name__ == '__main__':
