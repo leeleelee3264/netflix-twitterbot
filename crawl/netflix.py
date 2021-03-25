@@ -7,7 +7,7 @@ import os
 import dload
 import datetime
 
-from crawl import regex
+import regex
 from imageTweetTest import post_tweet
 
 
