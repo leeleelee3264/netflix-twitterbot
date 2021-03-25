@@ -1,6 +1,6 @@
 # twitter_project
 
-<hr>
+<br>
 
 ## 🤖 netflix update bot 🤖  
 
@@ -9,7 +9,19 @@
 | End Date        |            |
 | Twitter Account | [@Devleelee](https://twitter.com/DevLeelee) |  
 
-Project name: netflix update bot <br> 
-Purpose: tweeting netflix's upcoming movie and drama in twitter for myself. I don't want to go to netflix website and check the info regulary. <br> 
-Dev stack: (fill later) <br> 
+<br>
 
+Project name: netflix update bot <br> 
+Purpose: tweeting netflix korea's upcoming movie and drama in twitter for myself.<br> 
+
+### development stack
+| stack      | info |
+|-----------------|------------|
+| Backend language       |   python         |
+| Backend api | twitter api |  
+| Server | github action |  
+
+// 여기쯤 플로우 차트
+
+### account image 
+![netflix_img](https://user-images.githubusercontent.com/35620531/112550299-80fbda80-8e02-11eb-9583-3b8268dafb2a.PNG)
