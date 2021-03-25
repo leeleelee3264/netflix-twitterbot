@@ -9,6 +9,7 @@
 import tweepy
 import os
 from pathlib import Path
+import regex
 
 
 def OAuth():
@@ -26,8 +27,7 @@ def OAuth():
         return None
 
 
-
-def postTweet(container: dict):
+def post_tweet(container: dict, date):
     oauth = OAuth()
     api = tweepy.API(oauth)
 
@@ -35,12 +35,13 @@ def postTweet(container: dict):
     _path = Path(_current_dir)
 
     BASE_DIR = _path.parent.absolute()
-    IMG_DIR = f'{BASE_DIR}/img/netflix/alba-icon.png'
+    IMG_DIR = f'{BASE_DIR}/img/netflix/{date}'
 
-    # TODO: 여기다가 이미지 넣는 방법 찾아야 한다
-    tweet_format = '이미지 테스트'
-    api.update_with_media(IMG_DIR, status=tweet_format)
+    for key in container:
+        tTitle = key
+        tFile = f'{IMG_DIR}/{tTitle}.png'
 
+        reTitle = regex.change_hyphen(tTitle)
 
-
-
+        tweet_format = f'[{reTitle}]\n 공개 여정일:{container[key]}'
+        api.update_with_media(tFile, status=tweet_format)

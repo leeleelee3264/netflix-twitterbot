@@ -13,6 +13,7 @@ REGEX_WHITE_SPACE = r'[\s]'
 REGEX_FILE_DISABLE = r'[-=+,#/\?:^$.*\"※~&%ㆍ!』\\‘|\(\)\[\]\<\>`\'…》]'
 
 
+# _을 공백으로 바꾸기
 def change_hyphen(txt):
     t_text = txt
     results = re.findall(REGEX_HYPHEN, t_text)

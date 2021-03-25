@@ -7,10 +7,8 @@ import os
 import dload
 import datetime
 
-
-from common import regex
-from test import test_print
-from tweet import postTweet
+from crawl import regex
+from imageTweetTest import post_tweet
 
 
 def create_folder(fullPath):
@@ -80,7 +78,7 @@ def crawl():
 
         # post tweet
         try:
-            postTweet(container)
+            post_tweet(container, fToday)
         except Exception as e:
             print(e)
 
