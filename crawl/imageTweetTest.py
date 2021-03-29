@@ -28,15 +28,16 @@ def OAuth():
 
 
 def post_tweet(container: dict, date):
+    print('work calling')
     oauth = OAuth()
     api = tweepy.API(oauth)
-
+    print('work autho')
     _current_dir = os.path.dirname(os.path.abspath(__file__))
     _path = Path(_current_dir)
 
     BASE_DIR = _path.parent.absolute()
     IMG_DIR = f'{BASE_DIR}/img/netflix/{date}'
-
+    print(f'{IMG_DIR}')
     for key in container:
         tTitle = key
         tFile = f'{IMG_DIR}/{tTitle}.png'
