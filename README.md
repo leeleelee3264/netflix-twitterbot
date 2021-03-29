@@ -30,7 +30,7 @@ Purpose: tweeting netflix korea's upcoming movie and drama in twitter for myself
 <br>   
 
 ### Running Image
-     sample1     |  sample2
+Sample 1             |  Sample2
 :-------------------------:|:-------------------------:
 ![](https://user-images.githubusercontent.com/35620531/112839670-6adb6c00-90d9-11eb-8a74-3ad7b1c156ca.PNG)  |  ![](https://user-images.githubusercontent.com/35620531/112840270-184e7f80-90da-11eb-81dd-7984814ae9cf.PNG)
 
