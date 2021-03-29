@@ -50,16 +50,17 @@ def crawl():
         for info in infos:
             title = info.select_one('.thumb_cont > .tit_item > a').text
             date = info.select_one('.thumb_cont > .txt_info > .txt_num').text
-            container[title] = date
+
+            title_remove_white = regex.change_whitespace(title)
+            title_remove_spical = regex.change_file_disable(title_remove_white)
+
+            container[title_remove_spical] = date
 
             _check_img = info.select_one('.thumb_item > .poster_movie > img')
 
             if _check_img is None:
-                del container[title]
+                del container[title_remove_spical]
                 continue
-
-            title_remove_white = regex.change_whitespace(title)
-            title_remove_spical = regex.change_file_disable(title_remove_white)
 
             try:
                 imageTweetTest.post_tweet(container, fToday)
