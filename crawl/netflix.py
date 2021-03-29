@@ -12,6 +12,7 @@ import imageTweetTest
 
 
 def create_folder(fullPath):
+    print('working1')
     try:
         if not os.path.exists(fullPath):
             os.makedirs(fullPath)
@@ -25,6 +26,7 @@ def create_folder(fullPath):
 
 
 def crawl():
+    print('working2')
     _current_dir = os.path.dirname(os.path.abspath(__file__))
     _path = Path(_current_dir)
 
@@ -82,6 +84,5 @@ def crawl():
         except Exception as e:
             print(e)
 
-
-if __name__ == '__main__':
-    crawl()
+print('working')
+crawl()
