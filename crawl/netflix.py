@@ -32,6 +32,7 @@ def crawl():
 
     BASE_DIR = _path.parent.absolute()
     IMG_DIR = f'{BASE_DIR}/img/netflix'
+    print(f'{IMG_DIR}')
 
     DATE_FORMAT = '%Y%m%d'
     today = datetime.datetime.now()
