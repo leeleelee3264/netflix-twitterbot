@@ -36,3 +36,14 @@ jobs:
     - name: Run netflix crawler with python 
       run: |
         python3 "./crawl/netflix.py"
+    - name: Commits
+      run: |
+        git config --local user.email "absinthe4902@naver.com"
+        git config --local user.name "AUTO_ADD_GIT_ACTION"
+        git add .
+        git commit -m "AUTO ADD: commit downloaded image"
+    - name: Push
+      uses: ad-m/github-push-action@master
+      with:
+        branch: 'master'
+        github_token: $ 
