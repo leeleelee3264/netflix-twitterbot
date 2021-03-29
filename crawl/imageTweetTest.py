@@ -41,8 +41,9 @@ def post_tweet(container: dict, date):
     for key in container:
         tTitle = key
         tFile = f'{IMG_DIR}/{tTitle}.png'
-
+        print(f'{tFile}')
         reTitle = regex.change_hyphen(tTitle)
 
         tweet_format = f'[{reTitle}]\n 공개 여정일:{container[key]}'
         api.update_with_media(tFile, status=tweet_format)
+        print("여기서 애러인가")
