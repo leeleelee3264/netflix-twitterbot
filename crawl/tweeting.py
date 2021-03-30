@@ -62,9 +62,9 @@ def crawl():
                 del container[title_remove_spical]
                 continue
 
-            try:
-                imageTweetTest.post_tweet(container, fToday)
-            except Exception as e: 
-                print(e)
+        try:
+            imageTweetTest.post_tweet(container, fToday)
+        except Exception as e:
+            print(e)
 
 crawl()

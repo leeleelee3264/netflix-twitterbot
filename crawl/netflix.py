@@ -26,13 +26,11 @@ def create_folder(fullPath):
 
 
 def crawl():
-    print('working2')
     _current_dir = os.path.dirname(os.path.abspath(__file__))
     _path = Path(_current_dir)
 
     BASE_DIR = _path.parent.absolute()
     IMG_DIR = f'{BASE_DIR}/img/netflix'
-    print(f'{IMG_DIR}')
 
     DATE_FORMAT = '%Y%m%d'
     today = datetime.datetime.now()
@@ -85,5 +83,4 @@ def crawl():
 #         except Exception as e:
 #             print(e)
 
-print('working')
 crawl()

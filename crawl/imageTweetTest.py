@@ -31,7 +31,6 @@ def post_tweet(container: dict, date):
     print('work calling')
     oauth = OAuth()
     api = tweepy.API(oauth)
-    print('work autho')
     _current_dir = os.path.dirname(os.path.abspath(__file__))
     _path = Path(_current_dir)
 
@@ -46,4 +45,3 @@ def post_tweet(container: dict, date):
 
         tweet_format = f'[{reTitle}]\n 공개 여정일:{container[key]}'
         api.update_with_media(tFile, status=tweet_format)
-        print("여기서 애러인가")
