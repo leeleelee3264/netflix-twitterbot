@@ -5,7 +5,7 @@ name: Netflix_Crawl
 
 on:
   schedule: 
-    - cron: '0 0 * * 5'
+    - cron: '0 0 * * Sat'
   push:
     branches: [ master ]
   pull_request:
