@@ -42,7 +42,6 @@ jobs:
         git config --local user.name "AUTO_ADD_GIT_ACTION"
         git add .
         git commit -m "AUTO ADD: commit downloaded image"
-        git pull 
     - name: Push
       uses: ad-m/github-push-action@master
       with:
