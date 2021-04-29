@@ -64,7 +64,7 @@ def crawl():
 
         try:
             imageTweetTest.post_tweet(container, fToday)
-        except Exception as e:
+        except Exception as e: 
             print(e)
 
 crawl()
