@@ -77,10 +77,10 @@ def crawl():
             img = info.select_one('.thumb_item > .poster_movie > img')['src']
             dload.save(img, f'{TARGET_DIR}/{title_remove_spical}.png')
 
-#         # post tweet
-#         try:
-#             imageTweetTest.post_tweet(container, fToday)
-#         except Exception as e:
-#             print(e)
+        # post tweet
+        try:
+            imageTweetTest.post_tweet(container, fToday)
+        except Exception as e:
+            print(e)
 
 crawl()

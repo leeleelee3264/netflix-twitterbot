@@ -4,12 +4,12 @@
 # DESC: Util code for netflix and musical crawl
 import os
 from pathlib import Path
+from PIL import Image
 
 DATE_FORMAT = '%Y%m%d'
 
 
 def _create_folder(fullPath):
-    print('working1')
     try:
         if not os.path.exists(fullPath):
             os.makedirs(fullPath)
@@ -36,3 +36,8 @@ def _get_img_dir(file, dirName):
 
     return f'{base_dir}/img/{dirName}'
 
+
+def _resize_img(file, dirName, hig, wid):
+    with Image.open(f'{dirName}/{file}.png') as im:
+        new_img = im.resize((hig, wid), Image.ANTIALIAS)
+        new_img.save(f'{dirName}/{file}.png')

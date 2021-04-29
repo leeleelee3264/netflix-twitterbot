@@ -13,50 +13,56 @@ import dload
 import datetime
 
 
-TARGET_URL = "http://ticket.interpark.com/contents/Ranking/RankList?pKind=01011&pType=D"
+TARGET_URL_MUSICAL = "http://ticket.interpark.com/contents/Ranking/RankList?pKind=01011&pCate=&pType=M&pDate="
+TARGET_URL_ACTING = "http://ticket.interpark.com/contents/Ranking/RankList?pKind=01009&pCate=&pType=D&pDate="
+
 DIR_NAME = 'musical'
-
-_current_dir = os.path.dirname(os.path.abspath(__file__))
-
-
-def create_folder(fullPath):
-    print('working1')
-    try:
-        if not os.path.exists(fullPath):
-            os.makedirs(fullPath)
-            return True
-        else:
-            return False
-
-    except OSError:
-        print('ERROR: Creating dir.' + fullPath)
-        return False
 
 
 def crawl():
 
-    # image downloading
-    _path = Path(_current_dir)
-    BASE_DIR = _path.parent.absolute()
-    IMG_DIR = f'{BASE_DIR}/img/{DIR_NAME}'
+    today = util._get_date(datetime.datetime.now())
+    IMG_DIR = util._get_img_dir(__file__, DIR_NAME)
+    TARGET_DIR = f'{IMG_DIR}/{today}'
 
-    DATE_FORMAT = '%Y%m%d'
+    isGenerate = util._create_folder(TARGET_DIR)
+
+    if isGenerate is False:
+        return
+
+    target_url = [TARGET_URL_MUSICAL, TARGET_URL_ACTING]
 
     selector = '.rankBody'
+    container = []
+    img_counter = 0
 
-    _req = requests.get(TARGET_URL)
-    _req.encoding = None
-    html = _req.content
-    _soup = BeautifulSoup(html, 'html.parser')
+    for t_url in target_url:
+        # crawl from web
+        _req = requests.get(t_url)
+        _req.encoding = None
+        html = _req.content
+        _soup = BeautifulSoup(html, 'html.parser')
 
-    infos = _soup.select(selector)
+        infos = _soup.select(selector)
 
-    for info in infos:
-        print(info)
+        for info in infos:
+            # parsing
+            title = info.select_one('.prdInfo')['title']
+
+            _place = info.select_one('.prdInfo > a').contents[2]
+            _place2 = _place.replace('\r\n\t', '')
+            place = _place2.strip()
+
+            _date = info.select_one('.prdDuration').text
+            date = _date.strip()
+
+            container.append(f'타이틀: {title}\n극장: {place}\n일시: {date}')
+            print(f'타이틀: {title}\n극장: {place}\n일시: {date}')
+
+            img = info.select_one('.prds > a > img')['src']
+            dload.save(img, f'{TARGET_DIR}/{img_counter}.png')
+
+            img_counter = img_counter + 1
 
 
-
-
-# calling
-# crawl()
-print(util._get_img_dir(__file__, DIR_NAME))
+crawl()

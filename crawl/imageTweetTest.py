@@ -28,7 +28,6 @@ def OAuth():
 
 
 def post_tweet(container: dict, date):
-    print('work calling')
     oauth = OAuth()
     api = tweepy.API(oauth)
     _current_dir = os.path.dirname(os.path.abspath(__file__))
