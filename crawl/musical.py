@@ -3,7 +3,6 @@
 # Date: 2021-04-22
 # DESC: file for crawl musical info site
 
-from pathlib import Path
 
 import requests
 from bs4 import BeautifulSoup
@@ -11,13 +10,24 @@ import os
 import util
 import dload
 import datetime
+import imageTweetTest
+from key import musical
 
 
 TARGET_URL_MUSICAL = "http://ticket.interpark.com/contents/Ranking/RankList?pKind=01011&pCate=&pType=M&pDate="
+
+# 원래 연극도 하려고 했는데 고민중..
 TARGET_URL_ACTING = "http://ticket.interpark.com/contents/Ranking/RankList?pKind=01009&pCate=&pType=D&pDate="
 
 DIR_NAME = 'musical'
 
+
+keys = {
+    imageTweetTest._API_KEY: musical.API_KEY,
+    imageTweetTest._API_KEY_SECRET: musical.API_KEY_SECRET,
+    imageTweetTest._ACCESS_TOKEN: musical.ACCESS_TOKEN,
+    imageTweetTest._ACCESS_TOKEN_SECRET: musical.ACCESS_TOKEN_SECRET
+}
 
 def crawl():
 
@@ -30,7 +40,7 @@ def crawl():
     if isGenerate is False:
         return
 
-    target_url = [TARGET_URL_MUSICAL, TARGET_URL_ACTING]
+    target_url = [TARGET_URL_MUSICAL]
 
     selector = '.rankBody'
     container = []
@@ -56,13 +66,14 @@ def crawl():
             _date = info.select_one('.prdDuration').text
             date = _date.strip()
 
-            container.append(f'타이틀: {title}\n극장: {place}\n일시: {date}')
-            print(f'타이틀: {title}\n극장: {place}\n일시: {date}')
+            container.append(f'TITLE: {title}\n\nTHEATER: {place}\nDATE: {date}')
 
             img = info.select_one('.prds > a > img')['src']
             dload.save(img, f'{TARGET_DIR}/{img_counter}.png')
 
             img_counter = img_counter + 1
+
+    imageTweetTest.post_tweet_list(container, TARGET_DIR, keys)
 
 
 crawl()
