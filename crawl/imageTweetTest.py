@@ -68,7 +68,7 @@ def post_tweet(container: dict, date):
         print(f'{tFile}')
         reTitle = regex.change_hyphen(tTitle)
 
-        tweet_format = f'[{reTitle}]\n 공개 여정일:{container[key]}'
+        tweet_format = f'[{reTitle}]\n 공개 예정일:{container[key]}'
         api.update_with_media(tFile, status=tweet_format)
 
 
