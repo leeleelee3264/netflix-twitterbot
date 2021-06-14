@@ -4,9 +4,13 @@
 # DESC: file for crawl musical info site
 
 
+import sys
+import os 
+sys.path.append("/opt/twitter_project/")
+
+
 import requests
 from bs4 import BeautifulSoup
-import os
 import util
 import dload
 import datetime
@@ -66,7 +70,7 @@ def crawl():
             _date = info.select_one('.prdDuration').text
             date = _date.strip()
 
-            container.append(f'TITLE: {title}\n\nTHEATER: {place}\nDATE: {date}')
+            container.append(f'TITLE: {title}\n\n공연장: {place}\n기간: {date}')
 
             img = info.select_one('.prds > a > img')['src']
             dload.save(img, f'{TARGET_DIR}/{img_counter}.png')
