@@ -4,15 +4,20 @@
 # DESC: file for crawl musical info site
 
 
-import datetime
+import sys
 
-import dload
+sys.path.append("/opt/twitter_project/")
+
+
 import requests
 from bs4 import BeautifulSoup
-
-import imageTweetTest
 import util
+import dload
+import datetime
+import imageTweetTest
 from key import musical
+
+
 
 TARGET_URL_MUSICAL = "http://ticket.interpark.com/contents/Ranking/RankList?pKind=01011&pCate=&pType=M&pDate="
 
@@ -65,6 +70,7 @@ def crawl():
             _date = info.select_one('.prdDuration').text
             date = _date.strip()
 
+
             # 날짜 지난 공연 안 보이도록
             tildeIndex = date.find('~') + 1
             endDateStr = date[tildeIndex:]
@@ -74,7 +80,8 @@ def crawl():
             if util._isBefore(today, endDate):
                 continue
 
-            container.append(f'TITLE: {title}\n\nTHEATER: {place}\nDATE: {date}')
+
+            container.append(f'TITLE: {title}\n\n공연장: {place}\n기간: {date}')
 
             img = info.select_one('.prds > a > img')['src']
             dload.save(img, f'{TARGET_DIR}/{img_counter}.png')

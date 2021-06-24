@@ -68,7 +68,7 @@ def post_tweet(container: dict, date):
         print(f'{tFile}')
         reTitle = regex.change_hyphen(tTitle)
 
-        tweet_format = f'[{reTitle}]\n 공개 여정일:{container[key]}'
+        tweet_format = f'[{reTitle}]\n 공개 예정일:{container[key]}'
         api.update_with_media(tFile, status=tweet_format)
 
 
@@ -81,12 +81,12 @@ def post_tweet_list(container: list, img_dir, keys : dict ):
     if not container:
         return None
 
-    index = 0
+    index = len(container) - 1
 
-    while index < len(container):
+    while index >= 0:
         tInfo = container[index]
         tImg = f'{IMG_DIR}/{index}.png'
 
         api.update_with_media(tImg, status=tInfo)
 
-        index = index + 1
+        index = index - 1
