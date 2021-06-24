@@ -4,15 +4,15 @@
 # DESC: file for crawl musical info site
 
 
+import datetime
+
+import dload
 import requests
 from bs4 import BeautifulSoup
-import os
-import util
-import dload
-import datetime
-import imageTweetTest
-from key import musical
 
+import imageTweetTest
+import util
+from key import musical
 
 TARGET_URL_MUSICAL = "http://ticket.interpark.com/contents/Ranking/RankList?pKind=01011&pCate=&pType=M&pDate="
 
@@ -20,7 +20,7 @@ TARGET_URL_MUSICAL = "http://ticket.interpark.com/contents/Ranking/RankList?pKin
 TARGET_URL_ACTING = "http://ticket.interpark.com/contents/Ranking/RankList?pKind=01009&pCate=&pType=D&pDate="
 
 DIR_NAME = 'musical'
-
+MUSICAL_DATEFORMAT = '%Y.%m.%d'
 
 keys = {
     imageTweetTest._API_KEY: musical.API_KEY,
@@ -58,13 +58,21 @@ def crawl():
         for info in infos:
             # parsing
             title = info.select_one('.prdInfo')['title']
-
             _place = info.select_one('.prdInfo > a').contents[2]
             _place2 = _place.replace('\r\n\t', '')
             place = _place2.strip()
 
             _date = info.select_one('.prdDuration').text
             date = _date.strip()
+
+            # 날짜 지난 공연 안 보이도록
+            tildeIndex = date.find('~') + 1
+            endDateStr = date[tildeIndex:]
+            endDate = util._change_string_to_date(endDateStr, MUSICAL_DATEFORMAT)
+
+
+            if util._isBefore(today, endDate):
+                continue
 
             container.append(f'TITLE: {title}\n\nTHEATER: {place}\nDATE: {date}')
 

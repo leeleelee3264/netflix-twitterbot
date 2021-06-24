@@ -4,7 +4,7 @@
 # DESC: Util code for netflix and musical crawl
 import os
 from pathlib import Path
-#from PIL import Image
+import datetime
 
 DATE_FORMAT = '%Y%m%d'
 
@@ -27,6 +27,17 @@ def _get_date(targetDate, fix_format=True):
     return targetDate.strftime(DATE_FORMAT)
 
 
+
+def _change_string_to_date(targetDate, format):
+
+    try:
+        return datetime.datetime.strptime(targetDate, format)
+    except Exception as e:
+        print(f'ERROR: change string to date targetDate:{targetDate}, format:{format}')
+
+        return None
+
+
 def _get_img_dir(file, dirName):
 
     _current_dir = os.path.dirname(os.path.abspath(file))
@@ -37,7 +48,8 @@ def _get_img_dir(file, dirName):
     return f'{base_dir}/img/{dirName}'
 
 
-#def _resize_img(file, dirName, hig, wid):
-#    with Image.open(f'{dirName}/{file}.png') as im:
-#        new_img = im.resize((hig, wid), Image.ANTIALIAS)
-#        new_img.save(f'{dirName}/{file}.png')
+# src 날짜보다 target 날짜가 더 과거인지
+def _isBefore(src, target):
+    return target < src
+
+
