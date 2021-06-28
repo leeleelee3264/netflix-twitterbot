@@ -75,9 +75,9 @@ def crawl():
             tildeIndex = date.find('~') + 1
             endDateStr = date[tildeIndex:]
             endDate = util._change_string_to_date(endDateStr, MUSICAL_DATEFORMAT)
+            print(endDate)
 
-
-            if util._isBefore(today, endDate):
+            if util._isBefore(datetime.datetime.now(), endDate):
                 continue
 
 
