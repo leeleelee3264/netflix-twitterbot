@@ -50,7 +50,7 @@ def crawl():
 
 
     selector = '.rankBody'
-    container = []
+    items = []
     img_counter = 0
 
     for t_url in target_url:
@@ -84,13 +84,13 @@ def crawl():
                 continue
 
 
-            container.append(f'TITLE: {title}\n\n공연장: {place}\n기간: {date}')
+            items.append(f'TITLE: {title}\n\n공연장: {place}\n기간: {date}')
 
             img = info.select_one('.prds > a > img')['src']
             dload.save(img, f'{TARGET_DIR}/{img_counter}.png')
 
             img_counter = img_counter + 1
-    print(container)
+    print(items)
     # imageTweetTest.post_tweet_list(container, TARGET_DIR, keys)
 
 
