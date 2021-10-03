@@ -16,6 +16,7 @@ import dload
 import datetime
 import imageTweetTest
 from key import musical
+import driver
 
 
 
@@ -47,16 +48,19 @@ def crawl():
 
     target_url = [TARGET_URL_MUSICAL]
 
+
     selector = '.rankBody'
     container = []
     img_counter = 0
 
     for t_url in target_url:
+
+        _driver = driver.get_driver()
+        _driver.get(t_url)
         # crawl from web
-        _req = requests.get(t_url)
-        _req.encoding = None
-        html = _req.content
-        _soup = BeautifulSoup(html, 'html.parser')
+        # _req = requests.get(t_url)
+        # _req.encoding = None
+        _soup = BeautifulSoup(_driver.page_source, 'html.parser')
 
         infos = _soup.select(selector)
 
@@ -75,7 +79,6 @@ def crawl():
             tildeIndex = date.find('~') + 1
             endDateStr = date[tildeIndex:]
             endDate = util._change_string_to_date(endDateStr, MUSICAL_DATEFORMAT)
-            print(endDate)
 
             if util._isBefore(datetime.datetime.now(), endDate):
                 continue
@@ -87,8 +90,8 @@ def crawl():
             dload.save(img, f'{TARGET_DIR}/{img_counter}.png')
 
             img_counter = img_counter + 1
-
-    imageTweetTest.post_tweet_list(container, TARGET_DIR, keys)
+    print(container)
+    # imageTweetTest.post_tweet_list(container, TARGET_DIR, keys)
 
 
 crawl()
