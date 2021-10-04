@@ -9,19 +9,68 @@ from selenium.webdriver.support.wait import WebDriverWait
 import driver
 
 TARGET_URL_MUSICAL = "http://ticket.interpark.com/contents/Ranking/RankList?pKind=01011&pCate=&pType=M&pDate="
-CAST_INFO_NAME = '부가정보'
+
+CAST_INFO_TAB_NAME = '부가정보'
 CAST_INFO_TAB_CLASS = 'navLink'
 CAST_INFO_TEXT_CLASS = 'moreInfoCast'
+
 GENERAL_WAIT_TIME = 5
+
+EMPTY = '정보없음'
 
 
 def get_cast_tab_number(elements):
-
     for i in range(len(elements)):
-        if elements[i].text == CAST_INFO_NAME:
+        if elements[i].text == CAST_INFO_TAB_NAME:
             return i
 
     return -1
+
+
+def move_to_cast_tab(_driver, selector, limit_time):
+    tabs = wait_class_elements(_driver, selector, limit_time, True)
+
+    if tabs is None:
+        return False
+
+    castTab = get_cast_tab_number(tabs)
+    tabs[castTab].click()
+
+    return True
+
+
+def get_cast_text(_driver, selector, limit_time):
+    text_container = wait_class_elements(_driver, selector, limit_time)
+
+    if text_container is None:
+        return EMPTY
+
+    text_rst = text_container.text
+
+    return set_default_cast_text(text_rst)
+
+
+def set_default_cast_text(text):
+
+    if text == '해당없음':
+        return EMPTY
+    return text
+
+
+def wait_class_elements(_driver, selector, limit_time, all_elements=False):
+    try:
+        if all_elements is True:
+            return WebDriverWait(_driver, limit_time).until(
+                EC.presence_of_all_elements_located((By.CLASS_NAME, selector))
+            )
+
+        return WebDriverWait(_driver, limit_time).until(
+            EC.presence_of_element_located((By.CLASS_NAME, selector))
+        )
+
+    except Exception as e:
+        print(e)
+        return None
 
 
 def parse_casting(_driver):
@@ -31,37 +80,19 @@ def parse_casting(_driver):
     except ElementNotInteractableException as e:
         pass
 
+    # go to casting tab
+    move_rst = move_to_cast_tab(_driver, CAST_INFO_TAB_CLASS, GENERAL_WAIT_TIME)
 
-    # cast parse
-    try:
-        tabs = WebDriverWait(_driver, GENERAL_WAIT_TIME).until(
-            EC.presence_of_all_elements_located((By.CLASS_NAME, CAST_INFO_TAB_CLASS))
-        )
+    if move_rst is False:
+        return EMPTY
 
-        castTab = get_cast_tab_number(tabs)
+    # parse text
+    text_rst = get_cast_text(_driver, CAST_INFO_TEXT_CLASS, GENERAL_WAIT_TIME)
 
-        tabs[castTab].click()
-    except Exception as e:
-        print(e)
-        return ''
-
-    try:
-        text_container = WebDriverWait(_driver, GENERAL_WAIT_TIME).until(
-            EC.presence_of_element_located((By.CLASS_NAME, CAST_INFO_TEXT_CLASS))
-        )
-
-        return text_container.text
-    except Exception as e:
-        print(e)
-        return ''
-    finally:
-        _driver.back()
+    _driver.back()
+    return text_rst
 
 
-# 셀레니움으로 페이지 이동 했다가 다시 오고 그러면 이미 새로 랜더링이 되어서
-# 예전의 엘리먼트가 없다고 에러가 났는데 이렇게 해결을 할 수 있었다.
-# 그냥 페이지는 새로 고쳐버리고 몇번째까지 읽었나를 기억하면 그만이었네..
-# https://stackoverflow.com/questions/58717379/how-to-do-loop-with-click-in-selenium
 def crawl():
     cast_list = []
 
@@ -71,8 +102,7 @@ def crawl():
     find_length = len(_driver.find_elements_by_class_name('prdImg'))
     list_count = 0
 
-    while(list_count < find_length):
-
+    while (list_count < find_length):
         find = _driver.find_elements_by_class_name('prdImg')
         find[list_count].click()
 
@@ -81,5 +111,6 @@ def crawl():
         cast_list.append(cast)
         list_count = list_count + 1
 
+    _driver.quit()
 
 crawl()
