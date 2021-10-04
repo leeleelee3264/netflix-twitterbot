@@ -14,7 +14,10 @@ def get_driver():
 
     full_path = f'{_dirver_path}chromedriver.exe'
 
-    print(full_path)
     return wb.Chrome(executable_path=full_path)
+
+
+def get_driver(headless):
+
 
 
