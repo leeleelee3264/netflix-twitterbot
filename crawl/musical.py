@@ -8,17 +8,13 @@ import sys
 
 sys.path.append("/opt/twitter_project/")
 
-
-import requests
 from bs4 import BeautifulSoup
 import util
 import dload
 import datetime
 import imageTweetTest
 from key import musical
-import driver
-
-
+from crawl.dynamic import driver
 
 TARGET_URL_MUSICAL = "http://ticket.interpark.com/contents/Ranking/RankList?pKind=01011&pCate=&pType=M&pDate="
 

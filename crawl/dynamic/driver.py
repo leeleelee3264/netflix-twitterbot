@@ -24,9 +24,9 @@ def get_driver(headless=True):
 def headless_option():
 
     options = wb.ChromeOptions()
-    options.add_argument('headless')
-    options.add_argument('window-size=1920x1080')
-    options.add_argument('disable-gpu')
+    # options.add_argument('headless')
+    # options.add_argument('window-size=1920x1080')
+    # options.add_argument('disable-gpu')
 
 # 클릭 오류 나서 이걸로 바꿔보려고 함
     options.add_argument("--window-size=1920,1080");
