@@ -27,6 +27,17 @@ class _Musical(object):
     def CAST_INFO_TEXT_CLASS(self):
         return "moreInfoCast"
 
+    @constant
+    def NAME_CLASS(self):
+        return "prdTitle"
+
+    @constant
+    def PLACE_XPATH(self):
+        return "//*[@data-popup='info-place']"
+
+    @constant
+    def DATE_XPATH(self):
+        return "//*[@id=\"container\"]/div[5]/div[1]/div[2]/div[1]/div/div[2]/ul/li[2]/div/p"
 
 
 class _Server(object):
