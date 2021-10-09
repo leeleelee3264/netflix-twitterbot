@@ -2,10 +2,22 @@ from crawl.regex import change_whitespace
 
 
 class Musical:
-    def __init__(self, name, poster_path, full_period):
+    def __init__(self, name, poster_path, full_period, current_url):
         self.name = name
         self.poster_path = poster_path
         self.__cal_period(full_period)
+        self.__fetch_interpark_data(current_url)
+
+    def __fetch_interpark_data(self, current_url):
+        self.interpark_url = current_url
+        self.__cal_product_id(current_url)
+
+    def __cal_product_id(self, current_url):
+        _split_char = '/'
+        last_slash = current_url.rfind(_split_char)
+
+        t_product_id = current_url[last_slash+1:]
+        self.interpark_id = t_product_id
 
     def fetch_in_info_tab(self, cast_text, place):
         self.__fetch_cast(cast_text)
@@ -19,7 +31,9 @@ class Musical:
 
     def __cal_period(self, full_period):
         _period = change_whitespace(full_period, '')
-        middle_tilde = _period.find('~')
+        _split_char = '~'
+
+        middle_tilde = _period.find(_split_char)
 
         startStr = _period[:middle_tilde]
         endStr = _period[middle_tilde + 1:]

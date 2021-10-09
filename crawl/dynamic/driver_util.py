@@ -49,9 +49,9 @@ def get_text(elemet):
 
     try:
         if elemet.text == '해당없음':
-            return CONST.EMPTY_STRING
+            return CONST.NO_DATA_STR
 
         return elemet.text
     except Exception as e:
         print(e)
-        return CONST.EMPTY_STRING
+        return CONST.NO_DATA_STR

@@ -42,9 +42,12 @@ def parse_basic_top(_driver):
     date_container = _driver.find_element(By.XPATH, MConst.DATE_XPATH)
     p_date = util.get_text(date_container)
 
-    tMusical = Musical(p_name, p_poster_path, p_date)
+    p_current_url = _driver.current_url
+
+    tMusical = Musical(p_name, p_poster_path, p_date, p_current_url)
 
     return tMusical
+
 
 
 # target처럼 class나 type을 미리 표시해두는 걸 typing이라고 한다.

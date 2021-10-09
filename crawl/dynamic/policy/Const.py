@@ -56,6 +56,10 @@ class _Server(object):
         return ""
 
     @constant
+    def NO_DATA_STR(self):
+        return "정보없음"
+
+    @constant
     def EMPTY_INT(self):
         return -1
 
