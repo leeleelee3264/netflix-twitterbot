@@ -6,4 +6,4 @@ key/
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
-
+crawl/db/connector.py 
