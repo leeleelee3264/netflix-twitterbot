@@ -5,6 +5,7 @@ from selenium.webdriver.common.by import By
 
 import actor as actor
 import crawl.dynamic.driver_util as util
+from crawl.db.exe_query import *
 from crawl.db.model.Musical import Musical
 from crawl.dynamic import driver
 from crawl.dynamic.policy.Const import _Musical, _Server
@@ -69,7 +70,12 @@ def parse_info_tab(_driver, src:Musical):
 def crawl():
     cast_list = []
 
-    _driver = driver.get_driver(headless=False)
+    query = """
+          insert into mt_musical (interpark_id, interpark_path, name, place, cast, start_date, end_date, poster_path)
+          values(%s, %s, %s, %s, %s, %s, %s, %s)
+          """
+
+    _driver = driver.get_driver(headless=True)
     _driver.get(MConst.MUSICAL_URL)
 
     find_length = len(_driver.find_elements_by_class_name('prdImg'))
@@ -80,11 +86,13 @@ def crawl():
         find[list_count].click()
 
         cast = go_to_detail_page(_driver)
-        print(cast)
+        exe_insert(cast.get_insert_query())
+
         cast_list.append(cast)
         list_count = list_count + 1
 
     _driver.quit()
+
 
 
 crawl()

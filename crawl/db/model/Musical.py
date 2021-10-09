@@ -1,7 +1,18 @@
+from crawl.db.model.insert_factory import InsertQuery
 from crawl.regex import change_whitespace
 
 
-class Musical:
+class Musical(InsertQuery):
+
+    def get_insert_query(self):
+
+        query = """
+        insert into %s (interpark_id, interpark_path, name, place, cast, start_date, end_date, poster_path)
+        values('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')
+        """ % ("mt_musical", self.interpark_id, self.interpark_path, self.name, self.place, self.cast, self.start_date, self.end_date, self.poster_path)
+
+        return query
+
     def __init__(self, name, poster_path, full_period, current_url):
         self.name = name
         self.poster_path = poster_path
@@ -9,7 +20,7 @@ class Musical:
         self.__fetch_interpark_data(current_url)
 
     def __fetch_interpark_data(self, current_url):
-        self.interpark_url = current_url
+        self.interpark_path = current_url
         self.__cal_product_id(current_url)
 
     def __cal_product_id(self, current_url):
