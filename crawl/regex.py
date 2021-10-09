@@ -25,13 +25,16 @@ def change_hyphen(txt):
 
 # 공백을 _로 바꾸기
 def change_whitespace(txt):
+    return change_hyphen(txt, HYPHEN)
+
+
+def change_whitespace(txt, replacement):
     t_text = txt
     results = re.findall(REGEX_WHITE_SPACE, t_text)
 
-    t_text = re.sub(REGEX_WHITE_SPACE, HYPHEN, t_text, len(results))
+    t_text = re.sub(REGEX_WHITE_SPACE, replacement, t_text, len(results))
 
     return t_text
-
 
 # 파일 이름에 못들어가는 특수 문자 @로 바꾸기
 # ? <>

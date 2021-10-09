@@ -12,6 +12,10 @@ def constant(func):
 class _Musical(object):
 
     @constant
+    def DATE_FORMAT(self):
+        return '%Y.%m.%d'
+
+    @constant
     def MUSICAL_URL(self):
         return "http://ticket.interpark.com/contents/Ranking/RankList?pKind=01011&pCate=&pType=M&pDate="
 
@@ -33,11 +37,16 @@ class _Musical(object):
 
     @constant
     def PLACE_XPATH(self):
-        return "//*[@data-popup='info-place']"
+        return "//*[@id=\"productMainBody\"]/div/div[2]/table/tbody/tr[3]/td[2]"
+
 
     @constant
     def DATE_XPATH(self):
         return "//*[@id=\"container\"]/div[5]/div[1]/div[2]/div[1]/div/div[2]/ul/li[2]/div/p"
+
+    @constant
+    def POSTER_XPATH(self):
+        return '//*[@id="container"]/div[5]/div[1]/div[2]/div[1]/div/div[2]/div/div[1]/img'
 
 
 class _Server(object):

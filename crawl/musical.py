@@ -39,8 +39,8 @@ def crawl():
 
     isGenerate = util._create_folder(TARGET_DIR)
 
-    if isGenerate is False:
-        return
+    # if isGenerate is False:
+    #     return
 
     target_url = [TARGET_URL_MUSICAL]
 

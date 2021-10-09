@@ -5,95 +5,69 @@ from selenium.webdriver.common.by import By
 
 import actor as actor
 import crawl.dynamic.driver_util as util
+from crawl.db.model.Musical import Musical
 from crawl.dynamic import driver
 from crawl.dynamic.policy.Const import _Musical, _Server
+from crawl.regex import change_whitespace
 
 MConst = _Musical()
 SConst = _Server()
 
-TARGET_URL_MUSICAL = MConst.MUSICAL_URL
-
-CAST_INFO_TAB_NAME = MConst.CAST_INFO_TAB_NAME
-CAST_INFO_TAB_CLASS = MConst.CAST_INFO_TAB_CLASS
-CAST_INFO_TEXT_CLASS = MConst.CAST_INFO_TEXT_CLASS
-
-GENERAL_WAIT_TIME = SConst.WAIT_TIME
-
-EMPTY = '정보없음'
-
-# TODO: 얘는 없어질 예정
-def get_cast_text(_driver, selector, limit_time):
-    text_container = util.wait_class_elements(_driver, selector, limit_time)
-
-    if text_container is None:
-        return EMPTY
-
-    return get_text(text_container)
 
 
-
-def get_text(elemet):
-
-    try:
-        if elemet.text == '해당없음':
-            return EMPTY
-        return elemet.text
-    except Exception as e:
-        return SConst.EMPTY_STRING
-
-
-
-def detail_page(_driver):
+def go_to_detail_page(_driver):
     actor.close_popup(_driver)
 
-    parse_basic_top(_driver)
-    parse_basic_cast(_driver)
-
+    src = parse_detail(_driver)
     actor.back_to_prev_page(_driver)
 
-    return []
+    return src
+
+
+def parse_detail(_driver):
+
+    src = parse_basic_top(_driver)
+    full_src = parse_info_tab(_driver, src)
+
+    return full_src
 
 
 def parse_basic_top(_driver):
-    name_container = _driver.find_element(By.CLASS_NAME, MConst.NAME_CLASS)
-    p_name = get_text(name_container)
+    poster_container = _driver.find_element(By.XPATH, MConst.POSTER_XPATH)
+    p_poster_path = poster_container.get_attribute('src')
 
-    plcae_container = _driver.find_element(By.XPATH, MConst.PLACE_XPATH)
-    p_place = get_text(plcae_container)
+    name_container = _driver.find_element(By.CLASS_NAME, MConst.NAME_CLASS)
+    p_name = util.get_text(name_container)
 
     date_container = _driver.find_element(By.XPATH, MConst.DATE_XPATH)
-    p_date = get_text(date_container)
+    p_date = util.get_text(date_container)
 
-    print(f'{p_name}  {p_place}  {p_date}')
+    tMusical = Musical(p_name, p_poster_path, p_date)
+
+    return tMusical
 
 
-def parse_basic_cast(_driver):
+# target처럼 class나 type을 미리 표시해두는 걸 typing이라고 한다.
+# hint는 sql에서 나오는 용어였음
+def parse_info_tab(_driver, src:Musical):
     # go to casting tab
-    move_rst = actor.move_tab(_driver)
+    actor.move_tab(_driver)
 
-    if move_rst is False:
-        return EMPTY
+    cast_container = util.wait_elemet(_driver, MConst.CAST_INFO_TEXT_CLASS, SConst.WAIT_TIME, By.CLASS_NAME)
+    p_cast = util.get_text(cast_container)
 
-    # parse text
-    text_rst = get_cast_text(_driver, CAST_INFO_TEXT_CLASS, GENERAL_WAIT_TIME)
-    return text_rst
+    place_container = util.wait_elemet(_driver, MConst.PLACE_XPATH, SConst.WAIT_TIME, By.XPATH)
+    p_place = util.get_text(place_container)
 
-# def parse_basic_top()
-# def parse_basic_cast()
-# def parse_schedule()
-
-# data_form = [
-#     [musical, scheule, casting],
-#     [musical, schedule, casting],
-# ]
-
+    src.fetch_in_info_tab(p_cast, p_place)
+    return src
 
 
 def crawl():
     cast_list = []
 
-    _driver = driver.get_driver(False)
-    _driver.get(TARGET_URL_MUSICAL)
+    _driver = driver.get_driver(headless=False)
+    _driver.get(MConst.MUSICAL_URL)
 
     find_length = len(_driver.find_elements_by_class_name('prdImg'))
     list_count = 0
@@ -102,7 +76,7 @@ def crawl():
         find = _driver.find_elements_by_class_name('prdImg')
         find[list_count].click()
 
-        cast = detail_page(_driver)
+        cast = go_to_detail_page(_driver)
         print(cast)
         cast_list.append(cast)
         list_count = list_count + 1
