@@ -4,10 +4,10 @@
 from selenium.webdriver.common.by import By
 
 import actor as actor
-import crawl.dynamic.driver_util as util
 from crawl.db.exe_query import *
 from crawl.db.model.musical import Musical
 from crawl.dynamic import driver
+from crawl.dynamic.driver_util import get_text, wait_elemet
 from crawl.dynamic.policy.Const import _Musical, _Server
 
 MConst = _Musical()
@@ -37,10 +37,10 @@ def parse_basic_top(_driver):
     p_poster_path = poster_container.get_attribute('src')
 
     name_container = _driver.find_element(By.CLASS_NAME, MConst.NAME_CLASS)
-    p_name = util.get_text(name_container)
+    p_name = get_text(name_container)
 
     date_container = _driver.find_element(By.XPATH, MConst.DATE_XPATH)
-    p_date = util.get_text(date_container)
+    p_date = get_text(date_container)
 
     p_current_url = _driver.current_url
 
@@ -56,11 +56,11 @@ def parse_info_tab(_driver, src:Musical):
     # go to casting tab
     actor.move_tab(_driver, MConst.CAST_INFO_TAB_NAME)
 
-    cast_container = util.wait_elemet(_driver, MConst.CAST_INFO_TEXT_CLASS, SConst.WAIT_TIME, By.CLASS_NAME)
-    p_cast = util.get_text(cast_container)
+    cast_container = wait_elemet(_driver, MConst.CAST_INFO_TEXT_CLASS, SConst.WAIT_TIME, By.CLASS_NAME)
+    p_cast = get_text(cast_container)
 
-    place_container = util.wait_elemet(_driver, MConst.PLACE_XPATH, SConst.WAIT_TIME, By.XPATH)
-    p_place = util.get_text(place_container)
+    place_container = wait_elemet(_driver, MConst.PLACE_XPATH, SConst.WAIT_TIME, By.XPATH)
+    p_place = get_text(place_container)
 
     src.fetch_in_info_tab(p_cast, p_place)
     return src
@@ -90,7 +90,6 @@ def crawl():
         list_count = list_count + 1
 
     _driver.quit()
-
 
 
 if __name__ == "__main__":

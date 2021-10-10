@@ -4,6 +4,9 @@
 # DESC:
 import re
 
+from crawl.dynamic.policy.Const import _Server
+
+SConst = _Server()
 HYPHEN = '_'
 AT = '@'
 WHITE_SPACE = ' '
@@ -11,9 +14,20 @@ WHITE_SPACE = ' '
 REGEX_HYPHEN = r'[_]'
 REGEX_WHITE_SPACE = r'[\s]'
 REGEX_FILE_DISABLE = r'[-=+,#/\?:^$.*\"※~&%ㆍ!』\\‘|\(\)\[\]\<\>`\'…》]'
+REGEX_NUMBER = '.+([0-9])[^0-9]*$'
 
 
-# _을 공백으로 바꾸기
+def get_last_index_of_digit(txt):
+    t_text = txt
+
+    try:
+        t_match = re.match(REGEX_NUMBER, t_text)
+        return t_match.start(1)
+    except Exception as e:
+        print(e)
+        return SConst.EMPTY_INT
+
+
 def change_hyphen(txt):
     t_text = txt
     results = re.findall(REGEX_HYPHEN, t_text)

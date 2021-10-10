@@ -18,8 +18,36 @@ def insert_common(query):
         db.commit()
     except Exception as e:
         print(e)
-    finally:
-        close_db()
+    # finally:
+    #     close_db()
+
+
+def insert_schedules(schedules):
+    sql = "insert into schedule(musical_id, date, time)" + \
+        "values(%s, %s, %s)"
+
+    try:
+        cursor.executemany(sql, schedules)
+        db.commit()
+    except Exception as e:
+        print(e)
+    # finally:
+    #     close_db()
+
+def insert_castings(castings):
+    sql = "insert into casting(musical_id, date, time, cast)" + \
+            "values(%s, %s, %s, %s)"
+
+    try:
+        cursor.executemany(sql, castings)
+        db.commit()
+    except Exception as e:
+        print(e)
+    # finally:
+    #     close_db()
+
+
+
 
 
 def get_musical():
@@ -38,12 +66,12 @@ def get_musical():
 
     except Exception as e:
         print(e)
-    finally:
-        close_db()
+    # finally:
+    #     close_db()
 
     return rst
 
 
-def close_db():
-    cursor.close()
-    db.close()
+# def close_db():
+#     cursor.close()
+#     db.close()
