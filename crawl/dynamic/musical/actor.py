@@ -17,8 +17,8 @@ def close_popup(_driver):
     except ElementNotInteractableException as e:
         pass
 
-def move_tab(_driver):
-    return util.move_tab(_driver, MConst.CAST_INFO_TAB_CLASS, SConst.WAIT_TIME, MConst.CAST_INFO_TAB_NAME)
+def move_tab(_driver, tab_name):
+    return util.move_tab(_driver, MConst.TAB_CLASS, SConst.WAIT_TIME, tab_name)
 
 def back_to_prev_page(_driver):
     _driver.back()

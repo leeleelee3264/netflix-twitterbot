@@ -6,10 +6,9 @@ from selenium.webdriver.common.by import By
 import actor as actor
 import crawl.dynamic.driver_util as util
 from crawl.db.exe_query import *
-from crawl.db.model.Musical import Musical
+from crawl.db.model.musical import Musical
 from crawl.dynamic import driver
 from crawl.dynamic.policy.Const import _Musical, _Server
-from crawl.regex import change_whitespace
 
 MConst = _Musical()
 SConst = _Server()
@@ -55,7 +54,7 @@ def parse_basic_top(_driver):
 # hint는 sql에서 나오는 용어였음
 def parse_info_tab(_driver, src:Musical):
     # go to casting tab
-    actor.move_tab(_driver)
+    actor.move_tab(_driver, MConst.CAST_INFO_TAB_NAME)
 
     cast_container = util.wait_elemet(_driver, MConst.CAST_INFO_TEXT_CLASS, SConst.WAIT_TIME, By.CLASS_NAME)
     p_cast = util.get_text(cast_container)
@@ -67,13 +66,13 @@ def parse_info_tab(_driver, src:Musical):
     return src
 
 
-def crawl():
-    cast_list = []
+def insert_main_info(src:Musical):
+    if src is not None:
+        query_for_musical = src.get_insert_query()
+        insert_common(query_for_musical)
 
-    query = """
-          insert into mt_musical (interpark_id, interpark_path, name, place, cast, start_date, end_date, poster_path)
-          values(%s, %s, %s, %s, %s, %s, %s, %s)
-          """
+
+def crawl():
 
     _driver = driver.get_driver(headless=True)
     _driver.get(MConst.MUSICAL_URL)
@@ -86,13 +85,13 @@ def crawl():
         find[list_count].click()
 
         cast = go_to_detail_page(_driver)
-        exe_insert(cast.get_insert_query())
+        insert_main_info(cast)
 
-        cast_list.append(cast)
         list_count = list_count + 1
 
     _driver.quit()
 
 
 
-crawl()
+if __name__ == "__main__":
+    crawl()

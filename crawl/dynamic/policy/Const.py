@@ -24,8 +24,19 @@ class _Musical(object):
         return "부가정보"
 
     @constant
-    def CAST_INFO_TAB_CLASS(self):
+    def SCHEDULE_INFO_TAB_NAME(self):
+        return "캐스팅정보"
+
+    @constant
+    def TAB_CLASS(self):
         return "navLink"
+
+    @constant
+    def SCHEDULE_TABLE_XPATH(self):
+        return "//*[@id=\"productMainBody\"]/div/div/div[3]/table/tbody/tr"
+        # return "//*[@id=\"productMainBody\"]/div/div/div[3]/table/tbody.//tr"
+        # return "//*[@id=\"productMainBody\"]/div/div/div[3]/table/tbody/"
+        # return "//*[@class=\'castingDetailTable\']//*tr"
 
     @constant
     def CAST_INFO_TEXT_CLASS(self):
@@ -47,6 +58,10 @@ class _Musical(object):
     @constant
     def POSTER_XPATH(self):
         return '//*[@id="container"]/div[5]/div[1]/div[2]/div[1]/div/div[2]/div/div[1]/img'
+
+    @constant
+    def UNKNOWN_CAST(self):
+        return "미정"
 
 
 class _Server(object):

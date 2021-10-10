@@ -1,15 +1,17 @@
 from crawl.db.model.insert_factory import InsertQuery
+from crawl.dynamic.policy.Table import _MTable
 from crawl.regex import change_whitespace
 
 
 class Musical(InsertQuery):
 
     def get_insert_query(self):
+        TABLE = _MTable()
 
         query = """
         insert into %s (interpark_id, interpark_path, name, place, cast, start_date, end_date, poster_path)
         values('%s', '%s', '%s', '%s', '%s', '%s', '%s', '%s')
-        """ % ("mt_musical", self.interpark_id, self.interpark_path, self.name, self.place, self.cast, self.start_date, self.end_date, self.poster_path)
+        """ % (TABLE.MUSICAL, self.interpark_id, self.interpark_path, self.name, self.place, self.cast, self.start_date, self.end_date, self.poster_path)
 
         return query
 

@@ -4,13 +4,13 @@ from crawl.dynamic.policy.Const import constant
 class _MTable(object):
 
     @constant
-    def MT_MUSICAL(self):
-        return "mt_musical"
+    def MUSICAL(self):
+        return "musical"
 
     @constant
-    def T_CASTING(self):
-        return "t_casting"
+    def CASTING(self):
+        return "casting"
 
     @constant
-    def T_SCHEDULE(self):
-        return "t_schedule"
+    def SCHEDULE(self):
+        return "schedule"
