@@ -1,4 +1,5 @@
 # file for crawl netflix info site
+# not for tweeting!!
 from pathlib import Path
 
 import requests
@@ -78,10 +79,6 @@ def crawl():
             dload.save(img, f'{TARGET_DIR}/{title_remove_spical}.png')
 
         # post tweet
-        print(container)
-        try:
-            imageTweetTest.post_tweet(container, fToday)
-        except Exception as e:
-            print(e)
+
 
 crawl()
