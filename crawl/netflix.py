@@ -71,13 +71,14 @@ def crawl():
                 del container[title]
                 continue
 
-            title_remove_white = regex.change_whitespace(title)
+            title_remove_white = regex.change_whitespace(title, '_')
             title_remove_spical = regex.change_file_disable(title_remove_white)
 
             img = info.select_one('.thumb_item > .poster_movie > img')['src']
             dload.save(img, f'{TARGET_DIR}/{title_remove_spical}.png')
 
         # post tweet
+        print(container)
         try:
             imageTweetTest.post_tweet(container, fToday)
         except Exception as e:

@@ -39,7 +39,7 @@ def change_hyphen(txt):
 
 # 공백을 _로 바꾸기
 def change_whitespace(txt):
-    return change_hyphen(txt, HYPHEN)
+    return change_hyphen(txt)
 
 
 def change_whitespace(txt, replacement):
