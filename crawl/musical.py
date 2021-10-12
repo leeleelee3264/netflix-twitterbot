@@ -6,6 +6,8 @@
 
 import sys
 
+import requests
+
 sys.path.append("/opt/twitter_project/")
 
 from bs4 import BeautifulSoup
@@ -14,7 +16,6 @@ import dload
 import datetime
 import imageTweetTest
 from key import musical
-from crawl.dynamic import driver
 
 TARGET_URL_MUSICAL = "http://ticket.interpark.com/contents/Ranking/RankList?pKind=01011&pCate=&pType=M&pDate="
 
@@ -39,8 +40,8 @@ def crawl():
 
     isGenerate = util._create_folder(TARGET_DIR)
 
-    # if isGenerate is False:
-    #     return
+    if isGenerate is False:
+        return
 
     target_url = [TARGET_URL_MUSICAL]
 
@@ -51,12 +52,13 @@ def crawl():
 
     for t_url in target_url:
 
-        _driver = driver.get_driver()
-        _driver.get(t_url)
+        # _driver = driver.get_driver()
+        # _driver.get(t_url)
         # crawl from web
-        # _req = requests.get(t_url)
-        # _req.encoding = None
-        _soup = BeautifulSoup(_driver.page_source, 'html.parser')
+        _req = requests.get(t_url)
+        _req.encoding = None
+        html = _req.content
+        _soup = BeautifulSoup(html, 'html.parser')
 
         infos = _soup.select(selector)
 
@@ -86,8 +88,7 @@ def crawl():
             dload.save(img, f'{TARGET_DIR}/{img_counter}.png')
 
             img_counter = img_counter + 1
-    print(items)
-    # imageTweetTest.post_tweet_list(container, TARGET_DIR, keys)
+    imageTweetTest.post_tweet_list(container, TARGET_DIR, keys)
 
 
 crawl()
