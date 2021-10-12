@@ -88,7 +88,7 @@ def crawl():
             dload.save(img, f'{TARGET_DIR}/{img_counter}.png')
 
             img_counter = img_counter + 1
-    imageTweetTest.post_tweet_list(container, TARGET_DIR, keys)
+    imageTweetTest.post_tweet_list(items, TARGET_DIR, keys)
 
 
 crawl()
