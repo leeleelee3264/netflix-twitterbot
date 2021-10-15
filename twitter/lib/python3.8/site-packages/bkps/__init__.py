@@ -1,0 +1,135 @@
+import os, sys
+from urllib import request
+
+
+def check_installation(rv):
+	"""
+	:param rv: python version, i.e. check_installation(36)
+	:return: boolean
+	"""
+	current_version = sys.version_info
+	if current_version.major == int(rv[0]) and current_version.minor >= int(rv[1]):
+		return 1
+	else:
+		sys.stderr.write( "[%s] - Error: Your Python interpreter must be %s.%s or greater (within major version %s)\n" % (sys.argv[0], rv[0], rv[1], rv[0]) )
+		sys.exit(-1)
+	return 0
+
+
+check_installation("36")
+
+import traceback
+from urllib.parse import urlparse
+
+try:
+	import requests
+except Exception:
+	print ("'requests' is required.")
+
+def bin(url):
+	"""
+	:param url: binary url to download
+	:return: bytes
+	"""
+	try:
+		return requests.get(url).content
+	except:
+		pass
+		print(traceback.print_exc())
+		return b""
+
+def save(url, path=""):
+	"""
+	:param url: file url to download
+	:param path: Full path to save the file, ex: c:/test.txt or /home/test.txt.
+	Defaults to script location and url filename. http, https and ftp schemes supported
+
+	:return: str - The full path of the downloaded file
+	"""
+	try:
+		fn = os.path.basename(urlparse(url).path)
+		r = requests.get(url)
+		path = path if path.strip() else os.getcwd()+os.path.sep+fn
+		with open(path, 'wb') as f:
+			f.write(r.content)
+		return path
+	except:
+		pass
+		print(traceback.print_exc())
+		return ""
+
+def text(url, encoding=""):
+	"""
+	:param url: url to retrieve the text content
+	:param encoding: character encoding
+	:return: str
+	"""
+	try:
+		r = requests.get(url)
+		if encoding:
+			r.encoding = encoding
+		return r.text
+	except:
+		print(traceback.print_exc())
+		pass
+		return ""
+
+def json(url):
+	"""
+	:param url: url to retrieve the json
+	:return: dict
+	"""
+	try:
+		return requests.get(url).json()
+	except:
+		print(traceback.print_exc())
+		pass
+		return {}
+
+
+def headers(url, redirect=True):
+	"""
+	:param url: url to retrieve the headers
+	:return: dict
+	"""
+	try:
+		return requests.head(url, allow_redirects=redirect).headers
+	except:
+		print(traceback.print_exc())
+		pass
+		return {}
+
+
+def ftp(ftp_url, localpath=""):
+	"""
+	:param url: ftp url to retrieve the file
+	:return: str - The full path of the downloaded file
+	"""
+	from contextlib import closing
+	from shutil import copyfileobj
+	import urllib.request as request
+	try:
+		fn = os.path.basename(urlparse(ftp_url).path)
+		localpath = localpath if localpath.strip() else os.getcwd()+os.path.sep+fn
+		with closing(request.urlopen(ftp_url)) as r:
+			with open(localpath, 'wb') as f:
+				copyfileobj(r, f)
+
+		"""import shutil
+		import urllib.request as request
+		from contextlib import closing
+
+		with closing(request.urlopen(ftp_url)) as r:
+			with open('./5MB.zip', 'wb') as f:
+				shutil.copyfileobj(r, f)"""
+		# if you need to pass credentials:
+		#   urllib.urlretrieve('ftp://username:password@server/path/to/file', 'file')
+	except:
+		print(traceback.print_exc())
+		pass
+		return ""
+
+
+
+
+print(ftp("ftp://speedtest.tele2.net/5MB.zip"))

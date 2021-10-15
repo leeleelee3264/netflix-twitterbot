@@ -3,6 +3,10 @@
 
 from selenium.webdriver.common.by import By
 
+import sys 
+
+sys.path.append('/opt/twitter_project')
+
 import actor as actor
 from crawl.db.exe_query import *
 from crawl.db.model.musical import Musical
@@ -33,13 +37,13 @@ def parse_detail(_driver):
 
 
 def parse_basic_top(_driver):
-    poster_container = _driver.find_element(By.XPATH, MConst.POSTER_XPATH)
+    poster_container = wait_elemet(_driver, MConst.POSTER_XPATH, SConst.WAIT_TIME, By.XPATH, False)
     p_poster_path = poster_container.get_attribute('src')
 
-    name_container = _driver.find_element(By.CLASS_NAME, MConst.NAME_CLASS)
+    name_container = wait_elemet(_driver, MConst.NAME_CLASS, SConst.WAIT_TIME, By.CLASS_NAME, False)
     p_name = get_text(name_container)
 
-    date_container = _driver.find_element(By.XPATH, MConst.DATE_XPATH)
+    date_container = wait_elemet(_driver, MConst.DATE_XPATH, SConst.WAIT_TIME, By.XPATH, False)
     p_date = get_text(date_container)
 
     p_current_url = _driver.current_url
@@ -84,8 +88,11 @@ def crawl():
         find = _driver.find_elements_by_class_name('prdImg')
         find[list_count].click()
 
-        cast = go_to_detail_page(_driver)
-        insert_main_info(cast)
+        try:
+            cast = go_to_detail_page(_driver)
+            insert_main_info(cast)
+        except Exception as e:
+            pass
 
         list_count = list_count + 1
 

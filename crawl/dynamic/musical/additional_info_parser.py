@@ -1,6 +1,8 @@
 # 이제 여기서 일정과 케스팅일 파싱한다
 from selenium.webdriver.common.by import By
+import sys
 
+sys.path.append('/opt/twitter_project')
 from crawl.db.exe_query import get_musical, insert_schedules, insert_castings
 from crawl.db.model.schedule import Schedule
 from crawl.dynamic import driver
