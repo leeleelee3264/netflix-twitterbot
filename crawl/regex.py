@@ -4,9 +4,7 @@
 # DESC:
 import re
 
-from crawl.dynamic.policy.Const import _Server
 
-SConst = _Server()
 HYPHEN = '_'
 AT = '@'
 WHITE_SPACE = ' '
@@ -25,7 +23,7 @@ def get_last_index_of_digit(txt):
         return t_match.start(1)
     except Exception as e:
         print(e)
-        return SConst.EMPTY_INT
+        return -1
 
 
 def change_hyphen(txt):
@@ -39,7 +37,7 @@ def change_hyphen(txt):
 
 # 공백을 _로 바꾸기
 def change_whitespace(txt):
-    return change_hyphen(txt, HYPHEN)
+    return change_hyphen(txt)
 
 
 def change_whitespace(txt, replacement):

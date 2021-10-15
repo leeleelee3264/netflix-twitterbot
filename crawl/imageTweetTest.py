@@ -64,11 +64,12 @@ def post_tweet(container: dict, date):
 
     for key in container:
         tTitle = key
-        tFile = f'{IMG_DIR}/{tTitle}.png'
+        tTile_without_white = regex.change_whitespace(tTitle, '_')
+        tTtile_without_speical = regex.change_file_disable(tTile_without_white)
+        tFile = f'{IMG_DIR}/{tTtile_without_speical}.png'
         print(f'{tFile}')
-        reTitle = regex.change_hyphen(tTitle)
 
-        tweet_format = f'[{reTitle}]\n 공개 예정일:{container[key]}'
+        tweet_format = f'[{tTitle}]\n 공개 예정일:{container[key]}'
         api.update_with_media(tFile, status=tweet_format)
 
 

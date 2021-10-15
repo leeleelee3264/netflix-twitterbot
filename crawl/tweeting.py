@@ -51,7 +51,7 @@ def crawl():
             title = info.select_one('.thumb_cont > .tit_item > a').text
             date = info.select_one('.thumb_cont > .txt_info > .txt_num').text
 
-            title_remove_white = regex.change_whitespace(title)
+            title_remove_white = regex.change_whitespace(title, "_")
             title_remove_spical = regex.change_file_disable(title_remove_white)
 
             container[title_remove_spical] = date
