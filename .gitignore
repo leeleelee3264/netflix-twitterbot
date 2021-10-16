@@ -7,3 +7,4 @@ key/
 __pycache__/
 *.py[cod]
 crawl/db/connector.py 
+twitter_env/
