@@ -12,7 +12,7 @@ def get_driver(headless=True):
     
     real_path=_dirver_path 
 
-    if(os.name == _linux):
+    if os.name == _linux:
         real_path=_dirver_path_linux
 
 

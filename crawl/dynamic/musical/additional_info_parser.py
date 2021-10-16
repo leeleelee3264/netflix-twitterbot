@@ -59,11 +59,17 @@ def crawl():
 
     _driver = driver.get_driver(headless=True)
 
-    for target in targets:
-        _driver.get(target.path)
-        rst = go_to_detail_page(_driver, target)
 
-        insert_parsed_infos(rst)
+    for target in targets:
+        try:
+            _driver.get(target.path)
+            rst = go_to_detail_page(_driver, target)
+
+            insert_parsed_infos(rst)
+        except Exception as e:
+            print(e)
+            pass
+
     _driver.quit()
 
 

@@ -92,8 +92,8 @@ def crawl():
             insert_main_info(cast)
         except Exception as e:
             pass
-
-        list_count = list_count + 1
+        finally:
+            list_count = list_count + 1
 
     _driver.quit()
 

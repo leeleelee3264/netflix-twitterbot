@@ -3,11 +3,11 @@ import datetime
 import pymysql
 
 from crawl import util
-from crawl.db.connector import local_cnf
+from crawl.db.connector import get_connector
 from crawl.dynamic.policy.Table import _MTable
 
-db = local_cnf
-cursor = local_cnf.cursor(pymysql.cursors.DictCursor)
+db = get_connector()
+cursor = db.cursor(pymysql.cursors.DictCursor)
 
 TABLE = _MTable()
 
