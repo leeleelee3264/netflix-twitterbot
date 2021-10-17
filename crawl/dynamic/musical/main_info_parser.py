@@ -80,17 +80,19 @@ def crawl():
     _driver = driver.get_driver(headless=True)
     _driver.get(MConst.MUSICAL_URL)
 
-    find_length = len(_driver.find_elements_by_class_name('prdImg'))
+    find_length = len(wait_elemet(_driver,'prdImg', By.CLASS_NAME, True))
     list_count = 0
 
     while (list_count < find_length):
-        find = _driver.find_elements_by_class_name('prdImg')
-        find[list_count].click()
-
         try:
+            find = wait_elemet(_driver,'prdImg', By.CLASS_NAME, True)
+            find[list_count].click()
+
             cast = go_to_detail_page(_driver)
             insert_main_info(cast)
+
         except Exception as e:
+            print(e)
             pass
         finally:
             list_count = list_count + 1

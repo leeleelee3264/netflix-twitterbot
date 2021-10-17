@@ -14,7 +14,7 @@ def close_popup(_driver):
     try:
         time.sleep(SConst.WAIT_TIME)
         _driver.find_element_by_class_name('popupCloseBtn').click()
-    except ElementNotInteractableException as e:
+    except Exception as e:
         pass
 
 def move_tab(_driver, tab_name):
