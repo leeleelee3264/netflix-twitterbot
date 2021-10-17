@@ -81,3 +81,7 @@ class _Server(object):
     @constant
     def WAIT_TIME(self):
         return 5
+
+    @constant
+    def TRY_COUNT(self):
+        return 10

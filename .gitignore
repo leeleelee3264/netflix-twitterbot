@@ -1,6 +1,5 @@
 .idea/
 venv/
-utils/keys.py
 key/
 
 # Byte-compiled / optimized / DLL files

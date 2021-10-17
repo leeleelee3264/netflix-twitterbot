@@ -75,17 +75,34 @@ def insert_main_info(src:Musical):
         insert_common(query_for_musical)
 
 
+def get_musical_len(_driver):
+
+    counter = 0
+    find_lengt = 0
+
+    while (counter < SConst.TRY_COUNT):
+        try:
+            find_lengt = len(wait_elemet(_driver, 'prdImg', SConst.WAIT_TIME, By.CLASS_NAME, True))
+
+            return find_lengt
+        except Exception as e:
+            print(e)
+            counter = counter + 1
+
+    return find_lengt
+
+
 def crawl():
 
     _driver = driver.get_driver(headless=True)
     _driver.get(MConst.MUSICAL_URL)
 
-    find_length = len(wait_elemet(_driver,'prdImg', By.CLASS_NAME, True))
+    find_length = get_musical_len(_driver)
     list_count = 0
 
     while (list_count < find_length):
         try:
-            find = wait_elemet(_driver,'prdImg', By.CLASS_NAME, True)
+            find = wait_elemet(_driver, 'prdImg', SConst.WAIT_TIME,  By.CLASS_NAME, True)
             find[list_count].click()
 
             cast = go_to_detail_page(_driver)
