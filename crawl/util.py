@@ -50,6 +50,8 @@ def _get_img_dir(file, dirName):
 
 # src 날짜보다 target 날짜가 더 과거인지
 def _isBefore(src, target):
+    if target is None:
+        return True
     return target < src
 
 

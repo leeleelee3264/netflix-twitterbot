@@ -78,6 +78,8 @@ def crawl():
             endDateStr = date[tildeIndex:]
             endDate = util._change_string_to_date(endDateStr, MUSICAL_DATEFORMAT)
 
+            print(title)
+            print(endDate)
             if util._isBefore(datetime.datetime.now(), endDate):
                 continue
 
