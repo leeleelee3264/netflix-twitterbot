@@ -11,6 +11,31 @@
 
 <br>
 
+## 🤖 Casting of now playing performance in Korea Bot 🤖 
+<br>
+
+| Start Date      | 2021-12-25                                          |
+|-----------------|-----------------------------------------------------|
+| End Date        | 2021-12-25                                          |
+| Twitter Account | [@today_perform](https://twitter.com/today_perform) |  
+
+<br> 
+
+### project name: Casting of now playing performance in Korea Bot
+Purpose: 9 months ago, I built 'Now playing performance in Korea Bot' program. But it was only about which musicals are now playing in Korea.  
+I wanted to make a musical bot with more information just like casting. Because most of musical fans think casting of the day is the most important part of the performance. 
+They decide getting a ticket or not with casting info. So I built new one. 
+<hr> 
+
+<br> 
+
+### Running Image 
+![img](https://user-images.githubusercontent.com/35620531/147377250-c05a47f8-c1f7-4630-99ad-1249c005c857.png)
+
+
+<hr> 
+<hr> 
+
 ## 🤖 Now playing performance in Korea Bot 🤖  
 <br>
 

@@ -47,9 +47,6 @@ def insert_castings(castings):
     #     close_db()
 
 
-
-
-
 def get_musical():
 
     today = util._get_date(datetime.datetime.now())
@@ -72,6 +69,19 @@ def get_musical():
     return rst
 
 
-# def close_db():
-#     cursor.close()
-#     db.close()
+def get_schedule_for_twitter():
+    today_cast = util._get_date(datetime.datetime.now())
+
+    query = " SELECT c.time, c.cast, m.name, m.place, m.poster_path " + \
+            " FROM " + TABLE.CASTING + " c" + \
+            " INNER JOIN " + TABLE.MUSICAL + " m ON m.id = c.musical_id" + \
+            " WHERE c.date = " + today_cast
+    try:
+        cursor.execute(query)
+        rst = cursor.fetchall()
+
+        return rst
+    except Exception as e:
+        print(e)
+        return {}
+

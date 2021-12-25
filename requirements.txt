@@ -19,3 +19,5 @@ soupsieve==2.2.1
 tweepy==3.10.0
 urllib3==1.26.4
 
+
+Pillow~=8.4.0

@@ -6,6 +6,8 @@ import os
 from pathlib import Path
 import datetime
 
+import requests
+
 DATE_FORMAT = '%Y%m%d'
 
 
@@ -54,5 +56,16 @@ def _isBefore(src, target):
         return True
     return target < src
 
+
+def download_img_with_url(img_url):
+    file_name = 'temp_img.png'
+    request = requests.get(img_url, stream=True)
+
+    if request.status_code == 200:
+        with open(file_name, 'wb') as image:
+            for chunk in request:
+                image.write(chunk)
+
+    return file_name
 
 

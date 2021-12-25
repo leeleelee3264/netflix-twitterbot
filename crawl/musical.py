@@ -26,10 +26,10 @@ DIR_NAME = 'musical'
 MUSICAL_DATEFORMAT = '%Y.%m.%d'
 
 keys = {
-    imageTweetTest._API_KEY: musical.API_KEY,
-    imageTweetTest._API_KEY_SECRET: musical.API_KEY_SECRET,
-    imageTweetTest._ACCESS_TOKEN: musical.ACCESS_TOKEN,
-    imageTweetTest._ACCESS_TOKEN_SECRET: musical.ACCESS_TOKEN_SECRET
+    imageTweetTest.API_KEY: musical.API_KEY,
+    imageTweetTest.API_KEY_SECRET: musical.API_KEY_SECRET,
+    imageTweetTest.ACCESS_TOKEN: musical.ACCESS_TOKEN,
+    imageTweetTest.ACCESS_TOKEN_SECRET: musical.ACCESS_TOKEN_SECRET
 }
 
 def crawl():
@@ -78,8 +78,6 @@ def crawl():
             endDateStr = date[tildeIndex:]
             endDate = util._change_string_to_date(endDateStr, MUSICAL_DATEFORMAT)
 
-            print(title)
-            print(endDate)
             if util._isBefore(datetime.datetime.now(), endDate):
                 continue
 
