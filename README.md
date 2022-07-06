@@ -4,7 +4,8 @@ I made three twitter bots.
 
 [1] 오늘의 뮤지컬 스케쥴  
 [2] 지금 공연중인 뮤지컬 알림봇  
-[3] {KR} 넷플릭스 상영 예정작 트윗봇 
+[3] {KR} 넷플릭스 상영 예정작 트윗봇 [(연관 블로그 포스트)](https://leeleelee3264.github.io/backend/2021/04/16/twitterbot-with-git-action.html) 
+
 
 
 <br>
@@ -81,17 +82,13 @@ So I thought maybe it will be way easier for me to have a twitter bot about on-g
 
 Sample 1             |  Sample2
 :-------------------------:|:-------------------------:
-[<img src="https://user-images.githubusercontent.com/35620531/117728880-03125800-b225-11eb-804a-9be3572da1e2.png" width="400"/>](https://user-images.githubusercontent.com/35620531/117728880-03125800-b225-11eb-804a-9be3572da1e2.png) |  [<img src="https://user-images.githubusercontent.com/35620531/117728880-03125800-b225-11eb-804a-9be3572da1e2.png" width="400"/>](https://user-images.githubusercontent.com/35620531/117728938-158c9180-b225-11eb-9432-dae9489ac204.png)
+[<img src="https://user-images.githubusercontent.com/35620531/117728880-03125800-b225-11eb-804a-9be3572da1e2.png" width="400"/>](https://user-images.githubusercontent.com/35620531/117728880-03125800-b225-11eb-804a-9be3572da1e2.png) |  [<img src="https://user-images.githubusercontent.com/35620531/177594817-adab7f83-ebb5-482f-83f9-0d8759c26fa3.png" width="400"/>](https://user-images.githubusercontent.com/35620531/177594817-adab7f83-ebb5-482f-83f9-0d8759c26fa3.png)
 
 
 <br>
+<br>
 
-<hr> 
-<hr> 
-
-# 🤖 netflix update bot 🤖  
-
-> You can check more info about the project over here! [[Project] Github action으로 트위터 봇 만들기](https://leeleelee3264.github.io/backend/2021/04/16/twitterbot-with-git-action.html) 
+## [3] {KR} 넷플릭스 상영 예정작 트윗봇 
 
 <br>
 
@@ -103,11 +100,8 @@ Sample 1             |  Sample2
 
 <br>
 
-### Project name: netflix update bot 
-
-
-Purpose: tweeting netflix korea's upcoming movie and drama in twitter for myself.<br> 
-<hr>
+### Purpose of Project 
+tweeting netflix korea's upcoming movie and drama in twitter for myself.<br> 
 
 <br>
 
@@ -119,21 +113,19 @@ Purpose: tweeting netflix korea's upcoming movie and drama in twitter for myself
 | Server | server less |  
 | Scheduler | github action |  
 
-### flow chart
-![flow_img](https://leeleelee3264.github.io/assets/img/post/twitter_flow.png)
-
-
 <br>
 
-### account image 
-![netflix_img](https://user-images.githubusercontent.com/35620531/112550299-80fbda80-8e02-11eb-9583-3b8268dafb2a.PNG)
-
+### Demo Image
 <br>   
 
-### Running Image
 Sample 1             |  Sample2
 :-------------------------:|:-------------------------:
 ![](https://user-images.githubusercontent.com/35620531/112839670-6adb6c00-90d9-11eb-8a74-3ad7b1c156ca.PNG)  |  ![](https://user-images.githubusercontent.com/35620531/112840270-184e7f80-90da-11eb-81dd-7984814ae9cf.PNG)
+
+<br>
+
+### flow chart
+![flow_img](https://leeleelee3264.github.io/assets/img/post/twitter_flow.png)
 
 
 
