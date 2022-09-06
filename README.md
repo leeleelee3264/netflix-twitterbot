@@ -58,7 +58,7 @@ I wanted to make a musical bot with more information just like casting. Because 
 | Start Date      | 2021-03-30 |
 |-----------------|------------|
 | End Date        | 2021-05-11  |
-| Twitter Account | [@kr_now_perform](https://twitter.com/kr_now_perform) |  
+| Twitter Account | [@now_performKr](https://twitter.com/kr_now_perform) |  
 
 <br>
 
