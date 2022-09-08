@@ -10,15 +10,16 @@ from tweepy import TweepError
 from crawl import imageTweetTest
 from crawl.util import download_img_with_url
 from db import exe_query
+from key import casting
 
 sys.path.append('/opt/twitter_project')
 
 
 keys = {
-    imageTweetTest.API_KEY: "vhBAZqnCy7eoBAkyI2YOZaIDF",
-    imageTweetTest.API_KEY_SECRET: "5Ck4kciJVTqat9H7CXbdodJXXSBZhimgpE0uHLQKwISMH912Jk",
-    imageTweetTest.ACCESS_TOKEN: "1447910219787292677-k5D6LNoFMR0KljSncmH1JEQwzrpeBZ",
-    imageTweetTest.ACCESS_TOKEN_SECRET: "unCorvWn7RSexWDpbBvSY541hInN66RmdoESNabvNlyB0",
+    imageTweetTest.API_KEY: casting.API_KEY,
+    imageTweetTest.API_KEY_SECRET: casting.API_KEY_SECRET,
+    imageTweetTest.ACCESS_TOKEN: casting.ACCESS_TOKEN,
+    imageTweetTest.ACCESS_TOKEN_SECRET: casting.ACCESS_TOKEN_SECRET,
 }
 
 
