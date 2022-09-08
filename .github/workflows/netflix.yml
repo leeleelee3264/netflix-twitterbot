@@ -34,6 +34,7 @@ jobs:
       run: |
         git config --local user.email "absinthe4902@naver.com"
         git config --local user.name "AUTO_ADD_GIT_ACTION"
+        git pull
         git add .
         git commit -m "AUTO ADD: commit downloaded image"
     - name: Push
