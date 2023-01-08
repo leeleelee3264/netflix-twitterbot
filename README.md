@@ -4,7 +4,7 @@ I made three twitter bots.
 
 [1] [오늘의 뮤지컬 스케쥴](https://twitter.com/today_perform)  
 [2] [지금 공연중인 뮤지컬 알림봇](https://twitter.com/now_performKr)    
-[3] [{KR} 넷플릭스 상영 예정작 트윗봇](https://twitter.com/DevLeelee) [(연관 블로그 포스트)](https://leeleelee3264.github.io/backend/2021/04/16/twitterbot-with-git-action.html) 
+[3] [{KR} 넷플릭스 상영 예정작 트윗봇](https://twitter.com/now_netflixKR) [(연관 블로그 포스트)](https://leeleelee3264.github.io/backend/2021/04/16/twitterbot-with-git-action.html) 
 
 
 
@@ -96,7 +96,7 @@ Sample 1             |  Sample2
 | Start Date      | 2021-03-16 |
 |-----------------|------------|
 | End Date        | 2021-03-28 |
-| Twitter Account | [@Devleelee](https://twitter.com/DevLeelee) |  
+| Twitter Account | [@now_netflixKR](https://twitter.com/now_netflixKR) |  
 
 <br>
 
