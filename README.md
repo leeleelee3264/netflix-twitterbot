@@ -125,7 +125,7 @@ Sample 1             |  Sample2
 <br>
 
 ### flow chart
-![flow_img](https://leeleelee3264.github.io/assets/img/post/twitter_flow.png)
+![flow_img](https://leeleelee3264.github.io/static/img/post/twitter_flow.png)
 
 
 
