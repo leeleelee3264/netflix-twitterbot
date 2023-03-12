@@ -12,7 +12,6 @@ from pathlib import Path
 import regex
 import util
 
-
 # key mapping
 API_KEY = 'TWITTER_API_KEY'
 API_KEY_SECRET = 'TWITTER_API_SECRET'
@@ -64,17 +63,16 @@ def post_tweet(container: dict, date):
 
     for key in container:
         tTitle = key
-        tTile_without_white = regex.change_whitespace(tTitle, '_')
-        tTtile_without_speical = regex.change_file_disable(tTile_without_white)
-        tFile = f'{IMG_DIR}/{tTtile_without_speical}.png'
-        print(f'{tFile}')
+        tFile = f'{IMG_DIR}/{tTitle}.png'
 
-        tweet_format = f'[{tTitle}]\n 공개 예정일:{container[key]}'
+        formatted_title = regex.change_hyphen(tTitle)
+        formatted_title = regex.change_at_to_colon(formatted_title)
+
+        tweet_format = f'[{formatted_title}]\n 공개 예정일:{container[key]}'
         api.update_with_media(tFile, status=tweet_format)
 
 
-
-def post_tweet_list(container: list, img_dir, keys : dict ):
+def post_tweet_list(container: list, img_dir, keys: dict):
     oauth = inner_OAuth(keys)
     api = tweepy.API(oauth)
     IMG_DIR = img_dir
@@ -93,7 +91,7 @@ def post_tweet_list(container: list, img_dir, keys : dict ):
         index = index - 1
 
 
-def post_tweet_img_di(img_obj, fmt,  keys: dict):
+def post_tweet_img_di(img_obj, fmt, keys: dict):
     """
     This function get received img object from caller.
     Before this func, caller only passes path of img in server.

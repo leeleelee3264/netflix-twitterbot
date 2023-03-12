@@ -4,7 +4,6 @@
 # DESC:
 import re
 
-
 HYPHEN = '_'
 AT = '@'
 WHITE_SPACE = ' '
@@ -35,6 +34,11 @@ def change_hyphen(txt):
     return t_text
 
 
+def change_at_to_colon(txt):
+    new_text = re.sub(r'@', ':', txt)
+    return new_text
+
+
 # 공백을 _로 바꾸기
 def change_whitespace(txt):
     return change_hyphen(txt)
@@ -48,6 +52,7 @@ def change_whitespace(txt, replacement):
 
     return t_text
 
+
 # 파일 이름에 못들어가는 특수 문자 @로 바꾸기
 # ? <>
 def change_file_disable(file_name):
@@ -57,4 +62,3 @@ def change_file_disable(file_name):
     t_file_name = re.sub(REGEX_FILE_DISABLE, AT, t_file_name, len(results))
 
     return t_file_name
-
