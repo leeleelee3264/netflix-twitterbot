@@ -5,7 +5,7 @@ from tweepy import TweepError
 
 from domain.bot.entity import Meta, Content
 from domain.bot.exceptions import MetaNotFoundError, ResourcesNotFoundError, FailedUploadBot
-from domain.bot.services import BotService
+from domain.bot.service import BotService
 from services.netflix_bot.mapper import NetflixResponseMapper
 from utils.twitter import TwitterSender
 
@@ -17,7 +17,12 @@ class NetflixBotService(BotService):
         self._mapper = NetflixResponseMapper()
         self._twitter_agent = TwitterSender()
 
-    def get_meta(self, query_params: dict = None) -> Meta:
+    def get_meta(self) -> Meta:
+
+        query_params = {
+            'language': 'ko',
+            'country': 'KR',
+        }
 
         try:
             payload = self._get(url=self._endpoint, query_params=query_params)
@@ -28,7 +33,13 @@ class NetflixBotService(BotService):
                 f'{e.response.content}'
             )
 
-    def get_resources(self, query_params: dict = None) -> List[Content]:
+    def get_resources(self, page: int) -> List[Content]:
+
+        query_params = {
+            'language': 'ko',
+            'country': 'KR',
+            'page': page,
+        }
 
         try:
             payload = self._get(url=self._endpoint, query_params=query_params)
@@ -40,7 +51,7 @@ class NetflixBotService(BotService):
                 f'{query_params}'
             )
 
-    def run(self, contents: List[Content]) -> None:
+    def upload(self, contents: List[Content]) -> None:
 
         for content in contents:
             try:

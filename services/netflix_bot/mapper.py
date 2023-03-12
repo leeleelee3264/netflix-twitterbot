@@ -33,7 +33,7 @@ class NetflixResponseMapper:
     def _build_resource(self, payload: dict) -> Content:
 
         epoch_time = payload.get(self._key_start_time)
-        start_time = datetime.datetime.fromtimestamp(epoch_time).date()
+        start_time = datetime.datetime.fromtimestamp(epoch_time/1_000).date()
 
         start_time_str = start_time.strftime('%Y-%m-%d')
 
