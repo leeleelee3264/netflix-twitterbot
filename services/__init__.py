@@ -1,1 +1,1 @@
-from netflix_bot import *
+# from netflix_bot import *
