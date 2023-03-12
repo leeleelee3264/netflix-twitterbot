@@ -1,17 +1,17 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from domain.bot.entity import Content, Meta
+from domain.bot.dto.entity import Content, Meta
 
 
 class BotService(ABC):
 
     @abstractmethod
-    def get_meta(self) -> Meta:
+    def get_meta(self, query_params: dict = None) -> Meta:
         pass
 
     @abstractmethod
-    def get_resources(self) -> List[Content]:
+    def get_resources(self, query_params: dict = None) -> List[Content]:
         pass
 
     @abstractmethod
