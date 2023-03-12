@@ -22,11 +22,11 @@ jobs:
           python-version: 3.8
       - name: Run new netflix bot
         run: |
+          export PYTHONPATH="${PYTHONPATH}:$(pwd)"
           pip install --upgrade pip
           python3.8 -m venv env
           source env/bin/activate
           echo "VIRTUAL ENV:" $VIRTUAL_ENV
-          export PYTHONPATH="${PYTHONPATH}:$(pwd)"
           python3 "./services/netflix_bot/caller.py"
         env:
           TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
