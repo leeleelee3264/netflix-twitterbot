@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import List
 
-from domain.bot.dto.entity import Content, Meta
+from domain.bot.entity import Meta, Content
 
 
 class BotService(ABC):

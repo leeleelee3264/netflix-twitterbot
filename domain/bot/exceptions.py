@@ -4,3 +4,7 @@ class MetaNotFoundError(Exception):
 
 class ResourcesNotFoundError(Exception):
     pass
+
+
+class FailedUploadBot(Exception):
+    pass
