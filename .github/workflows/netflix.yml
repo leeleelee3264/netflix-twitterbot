@@ -27,24 +27,9 @@ jobs:
         python -m pip install --upgrade pip
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-    - name: Run netflix crawler with python 
+    - name: Run new netflix bot
       run: |
-        python3 "./crawl/netflix.py"
-    - name: Commits
-      run: |
-        git config --local user.email "absinthe4902@naver.com"
-        git config --local user.name "AUTO_ADD_GIT_ACTION"
-        git pull
-        git add .
-        git commit -m "AUTO ADD: commit downloaded image"
-    - name: Push
-      uses: ad-m/github-push-action@master
-      with:
-        branch: 'master'
-        github_token: $ 
-    - name: Tweet for final 
-      run: |
-        python3 "./crawl/tweeting.py"
+        python3 "./services/netflix_bot/caller.py"
       env: 
         TWITTER_API_KEY: ${{ secrets.TWITTER_API_KEY }}
         TWITTER_API_SECRET: ${{ secrets.TWITTER_API_SECRET }}
